@@ -1,0 +1,599 @@
+{
+  "metadata": {
+    "title": "RenalLogic AI Knowledge Base - Chronic Kidney Disease Risk Assessment",
+    "version": "1.0.0",
+    "last_updated": "2026-10-20",
+    "guidelines": [
+      "KDIGO 2024 Clinical Practice Guideline for the Evaluation and Management of Chronic Kidney Disease",
+      "National Institute of Diabetes and Digestive and Kidney Diseases (NIDDK) CKD Evaluation Guidance"
+    ],
+    "review_status": "verified_against_kdigo_2024",
+    "scope_notice": "Educational and research rule base. Not an approved clinical decision support tool or diagnostic device."
+  },
+  "rules": [
+    {
+      "id": "R_GFR_G1",
+      "name": "eGFR Stage G1: Normal or High",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": ">=", "value": 90}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G1"},
+      "explanation": "eGFR >= 90 mL/min/1.73 m² indicates normal or high glomerular filtration rate according to KDIGO 2024 classification.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2 (GFR Categories)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_GFR_G2",
+      "name": "eGFR Stage G2: Mildly Decreased",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": ">=", "value": 60},
+        {"fact": "egfr", "operator": "<", "value": 90}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G2"},
+      "explanation": "eGFR 60-89 mL/min/1.73 m² indicates mildly decreased filtration. In the absence of markers of kidney damage (such as albuminuria), this may be normal for age.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_GFR_G3A",
+      "name": "eGFR Stage G3a: Mildly to Moderately Decreased",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": ">=", "value": 45},
+        {"fact": "egfr", "operator": "<", "value": 60}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G3a"},
+      "explanation": "eGFR 45-59 mL/min/1.73 m² indicates mildly to moderately decreased filtration, representing clinically significant impairment when persistent for >3 months.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_GFR_G3B",
+      "name": "eGFR Stage G3b: Moderately to Severely Decreased",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": ">=", "value": 30},
+        {"fact": "egfr", "operator": "<", "value": 45}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G3b"},
+      "explanation": "eGFR 30-44 mL/min/1.73 m² indicates moderately to severely decreased kidney function with elevated cardiovascular and kidney failure risk.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_GFR_G4",
+      "name": "eGFR Stage G4: Severely Decreased",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": ">=", "value": 15},
+        {"fact": "egfr", "operator": "<", "value": 30}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G4"},
+      "explanation": "eGFR 15-29 mL/min/1.73 m² indicates severely decreased kidney function requiring proactive complication management and nephrology care.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_GFR_G5",
+      "name": "eGFR Stage G5: Kidney Failure",
+      "category": "eGFR Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "egfr", "operator": "<", "value": 15}
+      ],
+      "conclusion": {"fact": "egfr_stage", "value": "G5"},
+      "explanation": "eGFR < 15 mL/min/1.73 m² represents kidney failure (formerly end-stage renal disease), necessitating kidney replacement therapy planning or conservative care.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 2",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ACR_A1",
+      "name": "Albuminuria Stage A1: Normal to Mildly Increased",
+      "category": "Albuminuria Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "uacr", "operator": "<", "value": 30}
+      ],
+      "conclusion": {"fact": "uacr_stage", "value": "A1"},
+      "explanation": "UACR < 30 mg/g (< 3 mg/mmol) indicates normal to mildly increased urine albumin excretion.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 3 (Albuminuria Categories)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ACR_A2",
+      "name": "Albuminuria Stage A2: Moderately Increased",
+      "category": "Albuminuria Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "uacr", "operator": ">=", "value": 30},
+        {"fact": "uacr", "operator": "<=", "value": 300}
+      ],
+      "conclusion": {"fact": "uacr_stage", "value": "A2"},
+      "explanation": "UACR 30-300 mg/g (3-30 mg/mmol) indicates moderately increased albuminuria (microalbuminuria), an early marker of glomerular injury and endothelial dysfunction.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 3",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ACR_A3",
+      "name": "Albuminuria Stage A3: Severely Increased",
+      "category": "Albuminuria Staging",
+      "priority": 10,
+      "conditions": [
+        {"fact": "uacr", "operator": ">", "value": 300}
+      ],
+      "conclusion": {"fact": "uacr_stage", "value": "A3"},
+      "explanation": "UACR > 300 mg/g (> 30 mg/mmol) indicates severely increased albuminuria (macroalbuminuria), conferring high progression risk to kidney failure and cardiovascular events.",
+      "source": "KDIGO 2024 Guideline Chapter 1.2, Table 3",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_MARKER_GFR_ABNORMAL",
+      "name": "Abnormal GFR Marker Detection",
+      "category": "Marker Analysis",
+      "priority": 20,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "in", "value": ["G3a", "G3b", "G4", "G5"]}
+      ],
+      "conclusion": {"fact": "has_abnormal_gfr", "value": true},
+      "explanation": "eGFR stages G3a through G5 reflect abnormally reduced filtration (< 60 mL/min/1.73 m²), fulfilling the functional threshold for CKD if sustained for >3 months.",
+      "source": "KDIGO 2024 Criteria for CKD Definition",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_MARKER_ACR_ABNORMAL",
+      "name": "Abnormal Albuminuria Marker Detection",
+      "category": "Marker Analysis",
+      "priority": 20,
+      "conditions": [
+        {"fact": "uacr_stage", "operator": "in", "value": ["A2", "A3"]}
+      ],
+      "conclusion": {"fact": "has_abnormal_acr", "value": true},
+      "explanation": "Albuminuria categories A2 and A3 indicate pathological leakage of albumin across the glomerular filtration barrier.",
+      "source": "KDIGO 2024 Criteria for CKD Definition",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_MARKER_ANY_ABNORMAL_GFR",
+      "name": "Kidney Damage or Functional Marker Detected via eGFR",
+      "category": "Marker Analysis",
+      "priority": 25,
+      "conditions": [
+        {"fact": "has_abnormal_gfr", "operator": "==", "value": true}
+      ],
+      "conclusion": {"fact": "has_abnormal_marker", "value": true},
+      "explanation": "An abnormal filtration rate serves as an objective marker of impaired kidney function.",
+      "source": "KDIGO 2024 Definition of CKD",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_MARKER_ANY_ABNORMAL_ACR",
+      "name": "Kidney Damage Marker Detected via Albuminuria",
+      "category": "Marker Analysis",
+      "priority": 25,
+      "conditions": [
+        {"fact": "has_abnormal_acr", "operator": "==", "value": true}
+      ],
+      "conclusion": {"fact": "has_abnormal_marker", "value": true},
+      "explanation": "Persistent or significant albuminuria serves as an established structural/pathological marker of kidney damage.",
+      "source": "KDIGO 2024 Definition of CKD",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_MARKER_NORMAL_BOUNDS",
+      "name": "Both eGFR and Albuminuria Within Normal Limits",
+      "category": "Marker Analysis",
+      "priority": 25,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "in", "value": ["G1", "G2"]},
+        {"fact": "uacr_stage", "operator": "==", "value": "A1"}
+      ],
+      "conclusion": {"fact": "has_abnormal_marker", "value": false},
+      "explanation": "Both eGFR and albuminuria are within normal or mildly altered reference ranges without evidence of glomerular damage.",
+      "source": "KDIGO 2024 Risk Grid (Green Category)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_CHRON_CONFIRMED",
+      "name": "Chronicity Confirmed (>= 3 Months)",
+      "category": "Chronicity Evaluation",
+      "priority": 30,
+      "conditions": [
+        {"fact": "has_abnormal_marker", "operator": "==", "value": true},
+        {"fact": "chronicity_ge_3m", "operator": "==", "value": "yes"}
+      ],
+      "conclusion": {"fact": "chronicity_status", "value": "Confirmed_Persistent"},
+      "explanation": "KDIGO strictly defines CKD by the persistence of abnormalities for > 3 months. The documented chronicity satisfies this mandatory diagnostic duration criteria.",
+      "source": "KDIGO 2024 Definition of CKD (Requirement of >3 months duration)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_CHRON_ACUTE_OR_UNCONFIRMED",
+      "name": "Abnormal Marker Without 3-Month Chronicity",
+      "category": "Chronicity Evaluation",
+      "priority": 30,
+      "conditions": [
+        {"fact": "has_abnormal_marker", "operator": "==", "value": true},
+        {"fact": "chronicity_ge_3m", "operator": "==", "value": "no"}
+      ],
+      "conclusion": {"fact": "chronicity_status", "value": "Acute_or_Unconfirmed"},
+      "explanation": "Abnormalities are not known to have persisted for 3 months. A single laboratory abnormality must never be diagnosed as CKD; acute kidney injury (AKI) or transient albuminuria must be considered.",
+      "source": "KDIGO 2024 Chapter 1: Acute vs. Chronic Distinction",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_CHRON_UNKNOWN_PERSISTENCE",
+      "name": "Abnormal Marker With Unknown Chronicity",
+      "category": "Chronicity Evaluation",
+      "priority": 30,
+      "conditions": [
+        {"fact": "has_abnormal_marker", "operator": "==", "value": true},
+        {"fact": "chronicity_ge_3m", "operator": "==", "value": "unknown"}
+      ],
+      "conclusion": {"fact": "chronicity_status", "value": "Unknown_Persistence"},
+      "explanation": "Chronicity data is missing or unknown. Repeat evaluation in 3 months is necessary to distinguish acute vs chronic renal impairment.",
+      "source": "KDIGO 2024 Practice Guideline, Diagnostic Uncertainty Rules",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_CHRON_NOT_APPLICABLE",
+      "name": "Chronicity Not Applicable for Normal Markers",
+      "category": "Chronicity Evaluation",
+      "priority": 30,
+      "conditions": [
+        {"fact": "has_abnormal_marker", "operator": "==", "value": false}
+      ],
+      "conclusion": {"fact": "chronicity_status", "value": "Not_Applicable_Normal_Markers"},
+      "explanation": "Because measured filtration and albumin excretion are within normal limits, chronic persistence criteria of kidney damage are not triggered.",
+      "source": "KDIGO 2024 Clinical Evaluation Flow",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G1_A1",
+      "name": "KDIGO Grid: G1 + A1 (Low Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G1"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A1"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Low"},
+      "explanation": "Normal eGFR with normal albumin excretion corresponds to the green (low risk) category in the KDIGO prognosis heat map.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Green Cell G1-A1)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G2_A1",
+      "name": "KDIGO Grid: G2 + A1 (Low Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G2"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A1"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Low"},
+      "explanation": "Mildly decreased eGFR (60-89 mL/min) with normal albuminuria corresponds to low risk in the absence of other markers of kidney disease.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Green Cell G2-A1)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G1_A2",
+      "name": "KDIGO Grid: G1 + A2 (Moderately Increased Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G1"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A2"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Moderate"},
+      "explanation": "Normal eGFR with moderately increased albuminuria (30-300 mg/g) confers moderately increased risk (yellow zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Yellow Cell G1-A2)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G2_A2",
+      "name": "KDIGO Grid: G2 + A2 (Moderately Increased Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G2"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A2"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Moderate"},
+      "explanation": "Mildly decreased eGFR with moderately increased albuminuria confers moderately increased risk (yellow zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Yellow Cell G2-A2)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3A_A1",
+      "name": "KDIGO Grid: G3a + A1 (Moderately Increased Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3a"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A1"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Moderate"},
+      "explanation": "eGFR 45-59 mL/min with normal albuminuria falls into the moderately increased risk category (yellow zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Yellow Cell G3a-A1)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3B_A1",
+      "name": "KDIGO Grid: G3b + A1 (High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3b"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A1"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "High"},
+      "explanation": "eGFR 30-44 mL/min confers high risk (orange zone) of CKD progression and cardiovascular mortality even without heavy albuminuria.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Orange Cell G3b-A1)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3A_A2",
+      "name": "KDIGO Grid: G3a + A2 (High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3a"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A2"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "High"},
+      "explanation": "Mild-to-moderate eGFR decline combined with moderate albuminuria yields high risk (orange zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Orange Cell G3a-A2)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G1_A3",
+      "name": "KDIGO Grid: G1 + A3 (High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G1"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A3"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "High"},
+      "explanation": "Severe albuminuria (> 300 mg/g) elevates CKD risk to high (orange zone) even when glomerular filtration rate remains preserved.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Orange Cell G1-A3)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G2_A3",
+      "name": "KDIGO Grid: G2 + A3 (High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G2"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A3"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "High"},
+      "explanation": "Severe albuminuria with mildly reduced eGFR indicates significant glomerular pathology and places the patient in the high risk tier.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Orange Cell G2-A3)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G4_ANY",
+      "name": "KDIGO Grid: G4 Stage (Very High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G4"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Very_High"},
+      "explanation": "Severe reduction in eGFR (< 30 mL/min) automatically places the individual in the KDIGO very high risk (red zone) category regardless of albuminuria.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Red Zone Row G4)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G5_ANY",
+      "name": "KDIGO Grid: G5 Stage (Very High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G5"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Very_High"},
+      "explanation": "Kidney failure (eGFR < 15 mL/min) confers very high risk of mortality, cardiovascular events, and kidney failure progression (red zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Red Zone Row G5)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3B_A2",
+      "name": "KDIGO Grid: G3b + A2 (Very High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3b"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A2"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Very_High"},
+      "explanation": "Moderate-to-severe filtration impairment (30-44 mL/min) combined with moderate albuminuria reaches the very high risk tier (red zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Red Cell G3b-A2)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3A_A3",
+      "name": "KDIGO Grid: G3a + A3 (Very High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3a"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A3"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Very_High"},
+      "explanation": "eGFR 45-59 mL/min accompanied by severe albuminuria (> 300 mg/g) represents very high risk (red zone).",
+      "source": "KDIGO 2024 Prognosis Heat Map (Red Cell G3a-A3)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_RISK_G3B_A3",
+      "name": "KDIGO Grid: G3b + A3 (Very High Risk)",
+      "category": "Risk Matrix Integration",
+      "priority": 40,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "==", "value": "G3b"},
+        {"fact": "uacr_stage", "operator": "==", "value": "A3"}
+      ],
+      "conclusion": {"fact": "kdigo_risk_category", "value": "Very_High"},
+      "explanation": "eGFR 30-44 mL/min paired with severe albuminuria reflects advanced kidney pathology and very high risk.",
+      "source": "KDIGO 2024 Prognosis Heat Map (Red Cell G3b-A3)",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ASSESS_CONFIRMED_CKD",
+      "name": "Clinical Assessment: Confirmed CKD Criteria Met",
+      "category": "Clinical Assessment Synthesis",
+      "priority": 50,
+      "conditions": [
+        {"fact": "chronicity_status", "operator": "==", "value": "Confirmed_Persistent"},
+        {"fact": "kdigo_risk_category", "operator": "in", "value": ["Moderate", "High", "Very_High"]}
+      ],
+      "conclusion": {"fact": "assessment_summary", "value": "Confirmed_CKD_Criteria_Met"},
+      "explanation": "Patient meets formal KDIGO 2024 criteria for Chronic Kidney Disease: documented persistent kidney impairment or damage (> 3 months duration) with elevated risk classification.",
+      "source": "KDIGO 2024 CKD Clinical Definition & Classification Guidelines",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ASSESS_UNCONFIRMED_CHRONICITY",
+      "name": "Clinical Assessment: Abnormal Markers with Chronicity Unverified",
+      "category": "Clinical Assessment Synthesis",
+      "priority": 50,
+      "conditions": [
+        {"fact": "chronicity_status", "operator": "==", "value": "Unknown_Persistence"},
+        {"fact": "kdigo_risk_category", "operator": "in", "value": ["Moderate", "High", "Very_High"]}
+      ],
+      "conclusion": {"fact": "assessment_summary", "value": "Abnormal_Markers_Chronicity_Unverified"},
+      "explanation": "Laboratory markers show kidney function impairment or albuminuria, but persistence for >= 3 months is unknown. Confirmation requires repeat evaluation in 3 months before a formal CKD diagnosis can be established.",
+      "source": "KDIGO 2024 Guideline Section 1.1: Chronicity Verification Mandate",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ASSESS_ACUTE_SUSPECTED",
+      "name": "Clinical Assessment: Acute Abnormality Suspected (Non-Persistent)",
+      "category": "Clinical Assessment Synthesis",
+      "priority": 50,
+      "conditions": [
+        {"fact": "chronicity_status", "operator": "==", "value": "Acute_or_Unconfirmed"},
+        {"fact": "has_abnormal_marker", "operator": "==", "value": true}
+      ],
+      "conclusion": {"fact": "assessment_summary", "value": "Acute_Kidney_Abnormality_Suspected"},
+      "explanation": "Abnormal filtration or albuminuria is reported without 3 months of persistence. This pattern warrants evaluation for Acute Kidney Injury (AKI), acute illness, transient albuminuria, or hemodynamic changes rather than chronic disease.",
+      "source": "KDIGO 2024 Guideline: Distinguishing AKI from CKD",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ASSESS_NORMAL_STATUS",
+      "name": "Clinical Assessment: Normal Baseline Findings",
+      "category": "Clinical Assessment Synthesis",
+      "priority": 50,
+      "conditions": [
+        {"fact": "has_abnormal_marker", "operator": "==", "value": false},
+        {"fact": "kdigo_risk_category", "operator": "==", "value": "Low"}
+      ],
+      "conclusion": {"fact": "assessment_summary", "value": "No_Current_Laboratory_Evidence_of_CKD"},
+      "explanation": "Current laboratory values (eGFR and UACR) are within normal reference ranges, showing no biochemical evidence of kidney damage or functional decline.",
+      "source": "KDIGO 2024 Evaluation Guidelines",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ETIOLOGY_DIABETES",
+      "name": "Etiological Modifier: Diabetes Present",
+      "category": "Etiological Factors",
+      "priority": 60,
+      "conditions": [
+        {"fact": "diabetes", "operator": "==", "value": "yes"}
+      ],
+      "conclusion": {"fact": "diabetic_nephropathy_risk", "value": "Elevated_Diabetic_Etiology"},
+      "explanation": "Diabetes mellitus is the primary etiology of chronic kidney disease worldwide. Co-presence of diabetes accelerates microvascular renal disease.",
+      "source": "KDIGO 2024 Chapter on Diabetes and CKD / ADA Standards of Care",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_ETIOLOGY_HYPERTENSION",
+      "name": "Etiological Modifier: Hypertension Present",
+      "category": "Etiological Factors",
+      "priority": 60,
+      "conditions": [
+        {"fact": "hypertension", "operator": "==", "value": "yes"}
+      ],
+      "conclusion": {"fact": "hypertensive_risk_factor", "value": "Cardiovascular_Hypertensive_Comorbidity"},
+      "explanation": "Systemic hypertension serves as both a primary cause and major driver of CKD progression and cardiorenal events.",
+      "source": "KDIGO 2024 Blood Pressure Management in CKD",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_REC_NEPHROLOGY_REFERRAL",
+      "name": "Recommendation: Nephrology Referral Indicated",
+      "category": "Clinical Action Recommendations",
+      "priority": 70,
+      "conditions": [
+        {"fact": "egfr_stage", "operator": "in", "value": ["G4", "G5"]}
+      ],
+      "conclusion": {"fact": "nephrology_referral_indicated", "value": true},
+      "explanation": "KDIGO 2024 guidelines recommend nephrology referral for individuals with eGFR < 30 mL/min/1.73 m² (stages G4 and G5) for specialized multi-disciplinary care and renal replacement planning.",
+      "source": "KDIGO 2024 Chapter 1.4: Referral Criteria",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_REC_NEPHROLOGY_REFERRAL_ACR3",
+      "name": "Recommendation: Nephrology Referral for Heavy Albuminuria",
+      "category": "Clinical Action Recommendations",
+      "priority": 70,
+      "conditions": [
+        {"fact": "uacr_stage", "operator": "==", "value": "A3"}
+      ],
+      "conclusion": {"fact": "nephrology_referral_indicated", "value": true},
+      "explanation": "Severe albuminuria (UACR > 300 mg/g) is an independent trigger for nephrologist evaluation due to high risk of rapid progression and glomerulonephritis etiology.",
+      "source": "KDIGO 2024 Chapter 1.4: Referral Criteria",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_REC_MONITOR_ANNUAL",
+      "name": "Surveillance: Annual Monitoring (1x/year)",
+      "category": "Clinical Action Recommendations",
+      "priority": 75,
+      "conditions": [
+        {"fact": "kdigo_risk_category", "operator": "in", "value": ["Low", "Moderate"]}
+      ],
+      "conclusion": {"fact": "recommended_monitoring_frequency", "value": "At least 1x per year"},
+      "explanation": "Individuals in the KDIGO green or yellow categories should have eGFR and UACR assessed at least annually to screen for or monitor progression.",
+      "source": "KDIGO 2024 Monitoring Frequency Guidelines",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_REC_MONITOR_HIGH",
+      "name": "Surveillance: Bi-Annual Monitoring (2x/year)",
+      "category": "Clinical Action Recommendations",
+      "priority": 75,
+      "conditions": [
+        {"fact": "kdigo_risk_category", "operator": "==", "value": "High"}
+      ],
+      "conclusion": {"fact": "recommended_monitoring_frequency", "value": "2x per year"},
+      "explanation": "High-risk category (orange zone) warrants monitoring eGFR and albuminuria at least twice per year to detect rapid functional decline.",
+      "source": "KDIGO 2024 Monitoring Frequency Guidelines",
+      "review_status": "verified_against_kdigo_2024"
+    },
+    {
+      "id": "R_REC_MONITOR_VERY_HIGH",
+      "name": "Surveillance: Frequent Monitoring (3-4x/year)",
+      "category": "Clinical Action Recommendations",
+      "priority": 75,
+      "conditions": [
+        {"fact": "kdigo_risk_category", "operator": "==", "value": "Very_High"}
+      ],
+      "conclusion": {"fact": "recommended_monitoring_frequency", "value": "3-4x per year (or per nephrologist guidance)"},
+      "explanation": "Very high risk category (red zone) requires close laboratory surveillance 3 to 4 times per year to manage electrolyte, mineral, and cardiovascular complications.",
+      "source": "KDIGO 2024 Monitoring Frequency Guidelines",
+      "review_status": "verified_against_kdigo_2024"
+    }
+  ]
+}
