@@ -8,6 +8,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 from fastapi import FastAPI, HTTPException, Query, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .engine import KnowledgeBase, WorkingMemory
 from .forward_chaining import ForwardChainer
@@ -242,3 +243,9 @@ def assess_patient(payload: ClinicalInputRequest) -> AssessmentResponse:
         source_references=SOURCE_REFERENCES,
         safety_disclaimer=SAFETY_DISCLAIMER,
     )
+
+
+# Serve built React frontend if static directory exists
+STATIC_DIR = Path(__file__).parent / "static"
+if STATIC_DIR.exists():
+    app.mount("/", StaticFiles(directory=str(STATIC_DIR), html=True), name="static")
